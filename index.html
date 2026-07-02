@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vesna Home | Züccaciye & Ev Dekorasyonu</title>
+    <style>
+        :root {
+            --ana-renk: #2c2c2c;
+            --arka-plan: #fdfbf9;
+            --altin-renk: #bfa15f;
+            --beyaz: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--arka-plan);
+            color: var(--ana-renk);
+        }
+
+        header {
+            background-color: var(--beyaz);
+            border-bottom: 1px solid #eaeaea;
+            padding: 20px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ana-renk);
+        }
+
+        .sepet-butonu {
+            background: var(--ana-renk);
+            color: var(--beyaz);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .banner {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(0,0,0,0.03), rgba(0,0,0,0.03));
+            margin-bottom: 40px;
+        }
+
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .urunler-kapsayici {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .urun-karti {
+            background: var(--beyaz);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .urun-karti:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .urun-gorsel {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #f5f5f5;
+        }
+
+        .urun-bilgi {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .urun-baslik {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .fiyat-alani {
+            margin-bottom: 15px;
+        }
+
+        .eski-fiyat {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .yeni-fiyat {
+            color: var(--altin-renk);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .ekle-btn {
+            width: 100%;
+            background-color: var(--ana-renk);
+            color: var(--beyaz);
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .ekle-btn:hover {
+            background-color: var(--altin-renk);
+        }
+
+        .sepet-yan-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: var(--beyaz);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 101;
+            transition: 0.3s;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sepet-yan-panel.acik {
+            right: 0;
+        }
+
+        .sepet-baslik {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .kapat-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .sepet-elemanlari {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .sepet-urun {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .indirim-alani {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .indirim-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .indirim-btn {
+            background: var(--altin-renk);
+            color: var(--beyaz);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .toplam-tutar {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .whatsapp-siparis-btn {
+            width: 100%;
+            background-color: #25D366;
+            color: var(--beyaz);
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .whatsapp-siparis-btn:hover {
+            background-color: #1ebd58;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VESNA HOME</div>
+        <button class="sepet-butonu" onclick="sepetiAcKapat()">Sepet (<span id="sepet-adet">0</span>)</button>
+    </header>
+
+    <div class="banner">
+        <h1>Evini Keşfet</h1>
+        <p>Züccaciye ve Ev Dekorasyonunda Özgün Dokunuşlar</p>
+    </div>
+
+    <div class="urunler-kapsayici">
+        
+        <div class="urun-karti">
+            <img src="https://images.unsplash.com/photo-1576016770956-debb63d900bb?w=500" alt="Ürün" class="urun-gorsel">
+            <div class="urun-bilgi">
+                <h3 class="urun-baslik">Aura 6'lı Porselen Kahve Fincan Takımı</h3>
+                <div class="fiyat-alani">
+                    <span class="eski-fiyat">450 TL</span>
+                    <span class="yeni-fiyat">390 TL</span>
+                </div>
+                <button class="ekle-btn" onclick="sepeteEkle('Aura Fincan Takımı', 390)">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <div class="urun-karti">
+            <img src="https://images.unsplash.com/photo-1606744824163-985d376605aa?w=500" alt="Ürün" class="urun-gorsel">
+            <div class="urun-bilgi">
+                <h3 class="urun-baslik">Bohem Tarz Pamuklu Kırlent Kılıfı</h3>
+                <div class="fiyat-alani">
+                    <span class="eski-fiyat">180 TL</span>
+                    <span class="yeni-fiyat">140 TL</span>
+                </div>
+                <button class="ekle-btn" onclick="sepeteEkle('Bohem Kırlent Kılıfı', 140)">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <div class="urun-karti">
+            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=500" alt="Ürün" class="urun-gorsel">
+            <div class="urun-bilgi">
+                <h3 class="urun-baslik">Minimalist El Yapımı Seramik Vazo</h3>
+                <div class="fiyat-alani">
+                    <span class="eski-fiyat">320 TL</span>
+                    <span class="yeni-fiyat">280 TL</span>
+                </div>
+                <button class="ekle-btn" onclick="sepeteEkle('Seramik Vazo', 280)">Sepete Ekle</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="sepet-yan-panel" id="sepetPanel">
+        <div class="sepet-baslik">
+            <h2>Sepetiniz</h2>
+            <button class="kapat-btn" onclick="sepetiAcKapat()">&times;</button>
+        </div>
+        
+        <div class="sepet-elemanlari" id="sepetElemanlari"></div>
+
+        <div class="indirim-alani">
+            <input type="text" id="indirimKoduInput" class="indirim-input" placeholder="İndirim Kodu Girin">
+            <button class="indirim-btn" onclick="indirimUygula()">Uygula</button>
+        </div>
+
+        <div class="toplam-tutar">
+            <span>Toplam:</span>
+            <span id="sepetToplam">0 TL</span>
+        </div>
+
+        <button class="whatsapp-siparis-btn" onclick="whatsappSiparisVer()">WhatsApp ile Sipariş Ver</button>
+    </div>
+
+    <script>
+        const WHATSAPP_NO = "905551234567"; 
+
+        let sepet = [];
+        let indirimOrani = 0;
+
+        function sepetiAcKapat() {
+            document.getElementById('sepetPanel').classList.toggle('acik');
+        }
+
+        function sepeteEkle(urunAdi, fiyat) {
+            let varOlanUrun = sepet.find(item => item.ad === urunAdi);
+            if(varOlanUrun) {
+                varOlanUrun.adet += 1;
+            } else {
+                sepet.push({ ad: urunAdi, fiyat: fiyat, adet: 1 });
+            }
+            sepetiGuncelle();
+        }
+
+        function sepettenCikar(index) {
+            sepet.splice(index, 1);
+            sepetiGuncelle();
+        }
+
+        function sepetiGuncelle() {
+            const sepetElemanlari = document.getElementById('sepetElemanlari');
+            const sepetAdet = document.getElementById('sepetAdet');
+            const sepetToplam = document.getElementById('sepetToplam');
+            
+            sepetElemanlari.innerHTML = '';
+            let toplam = 0;
+            let toplamAdet = 0;
+
+            sepet.forEach((urun, index) => {
+                toplam += (urun.fiyat * urun.adet);
+                toplamAdet += urun.adet;
+
+                sepetElemanlari.innerHTML += `
+                    <div class="sepet-urun">
+                        <div>
+                            <strong>${urun.ad}</strong><br>
+                            <small>${urun.adet} adet x ${urun.fiyat} TL</small>
+                        </div>
+                        <button onclick="sepettenCikar(${index})" style="background:none; border:none; color:red; cursor:pointer;">Sil</button>
+                    </div>
+                `;
+            });
+
+            if(indirimOrani > 0) {
+                toplam = toplam * ((100 - indirimOrani) / 100);
+            }
+
+            sepetAdet.innerText = toplamAdet;
+            sepetToplam.innerText = toplam.toFixed(2) + " TL";
+        }
+
+        function indirimUygula() {
+            const kod = document.getElementById('indirimKoduInput').value.trim().toUpperCase();
+            if(kod === "VESNA10") {
+                indirimOrani = 10;
+                alert("Tebrikler! %10 indirim uygulandı.");
+            } else if(kod === "HOŞGELDİN20") {
+                indirimOrani = 20;
+                alert("Tebrikler! %20 indirim uygulandı.");
+            } else {
+                indirimOrani = 0;
+                alert("Geçersiz indirim kodu!");
+            }
+            sepetiGuncelle();
+        }
+
+        function whatsappSiparisVer() {
+            if(sepet.length === 0) {
+                alert("Sepetiniz boş! Önce ürün ekleyin.");
+                return;
+            }
+
+            let mesaj = "Merhaba Vesna Home, sitenizden sipariş vermek istiyorum:\n\n";
+            let toplam = 0;
+
+            sepet.forEach(urun => {
+                mesaj += `- ${urun.adet} adet ${urun.ad} (${urun.fiyat * urun.adet} TL)\n`;
+                toplam += (urun.fiyat * urun.adet);
+            });
+
+            if(indirimOrani > 0) {
+                toplam = toplam * ((100 - indirimOrani) / 100);
+                mesaj += `\nUygulanan İndirim: %${indirimOrani}\n`;
+            }
+
+            mesaj += `\n*Toplam Tutar:* ${toplam.toFixed(2)} TL\n\nLütfen siparişimi onaylayıp IBAN bilgisi gönderir misiniz?`;
+            
+            let urlGuncelMesaj = encodeURIComponent(mesaj);
+            window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NO}&text=${urlGuncelMesaj}`, '_blank');
+        }
+    </script>
+</body>
+</html>
